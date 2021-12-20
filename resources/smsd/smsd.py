@@ -73,30 +73,30 @@ def listen():
 		logging.debug("Ok")
 		try:
 			jeedom_com.send_change_immediate({'number' : 'network_name', 'message' : str(gsm.networkName) });
-		except Exception, e:
-			if str(e).find('object has no attribute') <> -1:
+		except Exception as e:
+			if str(e).find('object has no attribute') != -1:
 				pass
 			logging.error("Exception: %s" % str(e))
 
 		try:
 			gsm.write('AT+CPMS="ME","ME","ME"')
 			gsm.write('AT+CMGD=1,4')
-		except Exception, e:
-			if str(e).find('object has no attribute') <> -1:
+		except Exception as e:
+			if str(e).find('object has no attribute') != -1:
 				pass
 			logging.error("Exception: %s" % str(e))
 
 		try:
 			gsm.write('AT+CPMS="SM","SM","SM"')
 			gsm.write('AT+CMGD=1,4')
-		except Exception, e:
-			if str(e).find('object has no attribute') <> -1:
+		except Exception as e:
+			if str(e).find('object has no attribute') != -1:
 				pass
 			logging.error("Exception: %s" % str(e))
-	except Exception, e:
-		if str(e).find('object has no attribute') <> -1:
+	except Exception as e:
+		if str(e).find('object has no attribute') != -1:
 			pass
-		if str(e).find('Attempting to use a port that is not open') <> -1:
+		if str(e).find('Attempting to use a port that is not open') != -1:
 			pass	
 		logging.error("Exception: %s" % str(e))
 		jeedom_com.send_change_immediate({'number' : 'none', 'message' : str(e) });
@@ -257,7 +257,7 @@ try:
 		shutdown()
 	jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
 	listen()
-except Exception,e:
+except Exception as e:
 	logging.error('Fatal error : '+str(e))
 	logging.debug(traceback.format_exc())
 	shutdown()
